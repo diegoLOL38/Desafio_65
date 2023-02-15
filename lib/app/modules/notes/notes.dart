@@ -130,7 +130,7 @@ class _NotesState extends State<Notes> {
           Text(
             'Resultado Final é $result\n'
             'Classificação é $classification, $passed\n'
-            'Quanto faltou para ser aprovado $lack',
+            'Quanto faltou para ser aprovado  $lack',
             style: TextStyle(fontSize: 19),
           ),
           SizedBox(
