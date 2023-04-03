@@ -1,3 +1,4 @@
+import 'package:boletim/app/shared/models/notes_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -75,74 +76,78 @@ class _NotesState extends State<Notes> {
         title: Text('Informações'),
         backgroundColor: Colors.purple,
       ),
-      body: Column(
-        children: [
-          Text(
-            '1° Nota',
-            style: TextStyle(
-              fontSize: 17,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Text(
+              '1° Nota',
+              style: TextStyle(fontSize: 17),
             ),
-          ),
-          TextField(
-            controller: controller1,
-            keyboardType: TextInputType.number,
-          ),
-          Text(
-            '2° Nota',
-            style: TextStyle(
-              fontSize: 17,
+            TextField(
+              controller: controller1,
+              keyboardType: TextInputType.number,
             ),
-          ),
-          TextField(
-            controller: controller2,
-            keyboardType: TextInputType.number,
-          ),
-          Text(
-            '3° Nota',
-            style: TextStyle(
-              fontSize: 17,
+            const SizedBox(height: 20),
+            Text(
+              '2° Nota',
+              style: TextStyle(fontSize: 17),
             ),
-          ),
-          TextField(
-            controller: controller3,
-            keyboardType: TextInputType.number,
-          ),
-          Text(
-            '4° Nota',
-            style: TextStyle(
-              fontSize: 17,
+            TextField(
+              controller: controller2,
+              keyboardType: TextInputType.number,
             ),
-          ),
-          TextField(
-            controller: controller4,
-            keyboardType: TextInputType.number,
-          ),
-          ElevatedButton(
-            onPressed: math,
-            child: Text(
-              'Finalizar',
+            const SizedBox(height: 20),
+            Text(
+              '3° Nota',
+              style: TextStyle(fontSize: 17),
             ),
-            style: ElevatedButton.styleFrom(primary: Colors.purple),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Text(
-            'Resultado Final é $result\n'
-            'Classificação é $classification, $passed\n'
-            'Quanto faltou para ser aprovado $lack',
-            style: TextStyle(fontSize: 19),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          FloatingActionButton(
-            child: Icon(Icons.arrow_downward),
-            backgroundColor: Colors.purple,
-            foregroundColor: Colors.black,
-            onPressed: () {},
-          ),
-        ],
+            TextField(
+              controller: controller3,
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              '4° Nota',
+              style: TextStyle(fontSize: 17),
+            ),
+            TextField(
+              controller: controller4,
+              keyboardType: TextInputType.number,
+            ),
+            Expanded(child: SizedBox()),
+            ElevatedButton(
+              onPressed: () {
+                double notaUm = double.tryParse(controller1.text) ?? 0;
+                double notaDois = double.tryParse(controller2.text) ?? 0;
+                double notaTres = double.tryParse(controller3.text) ?? 0;
+                double notaQuatro = double.tryParse(controller4.text) ?? 0;
+                final notes = NotesModel(
+                  nota1: notaUm,
+                  nota2: notaDois,
+                  nota3: notaTres,
+                  nota4: notaQuatro,
+                  result: (notaUm + notaDois + notaTres + notaQuatro) / 4,
+                );
+                notes.classificacao();
+                notes.aprovado();
+                notes.estaAprovado();
+                Navigator.pushNamed(context, "/report", arguments: notes);
+              },
+              child: Text(
+                'Finalizar',
+              ),
+              style: ElevatedButton.styleFrom(primary: Colors.purple),
+            ),
+
+            // Text(
+            //   'Resultado Final é $result\n'
+            //   'Classificação é $classification, $passed\n'
+            //   'Quanto faltou para ser aprovado $lack',
+            //   style: TextStyle(fontSize: 19),
+            // ),
+          ],
+        ),
       ),
     );
   }

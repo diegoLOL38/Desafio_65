@@ -18,16 +18,33 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Color(0xFF4E0F5F),
       ),
-      body: Column(
-        children: [
-          Icon(
-            Icons.school_outlined,
-            size: 80,
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Center(
+          child: Column(
+            children: [
+              Text(
+                'Escola\n2023',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 40),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    elevation: 0, backgroundColor: Colors.transparent),
+                onPressed: () {
+                  Navigator.pushNamed(context, "/notes");
+                },
+                child: const Icon(
+                  Icons.school_outlined,
+                ),
+              ),
+            ],
           ),
-          Text(
-            'isso ae',
-          ),
-        ],
+        ),
       ),
     );
   }
